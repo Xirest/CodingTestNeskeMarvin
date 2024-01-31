@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using UnityEngine;
 
 public class Solution : MonoBehaviour
@@ -22,7 +23,8 @@ public class Solution : MonoBehaviour
         // on the ASCII table A-Z starts at 65
         int row = rowAsChar - 65;
 
-        return (width * row + column) * 2;
+        // the additional 2*row term fixes the issues introduced by the new lines
+        return ((width * row + column) * 2) + 2*row;
     }
 
     /// <summary>
@@ -47,17 +49,15 @@ public class Solution : MonoBehaviour
         int[] widthHeight = ParseBoardSize(board);
         int width = widthHeight[0];
         int height = widthHeight[1];
-        // remove the first line with width and heigth from the string
-        board = board[board.LastIndexOfAny(digits)..];
-        Debug.Log(board[BoardCoordToIdx(alphabet[0], 0, width)]);
-        Debug.Log(board[BoardCoordToIdx(alphabet[0], 4, width)]);
-        try { 
-        Debug.Log(board[BoardCoordToIdx(alphabet[6], 0, width)]);
-        } catch (Exception e) { Debug.Log(e); }
+        // remove the first line with width and heigth from the string (plus three because of the trailing space, the including notation, and the new line)
+        board = board[(board.LastIndexOfAny(digits)+3)..];
 
-        for (int i = 0; i < board.Length; i+=2)
+        for (int y = 0; y < height; ++y)
         {
+            for(int x = 0; x < width; ++x)
+            {
 
+            }
         }
         return "";
     }
