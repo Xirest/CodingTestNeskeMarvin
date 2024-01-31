@@ -56,9 +56,11 @@ public class Solution : MonoBehaviour
         Debug.Log(board.Length);
 
         int idx = BoardCoordToIdx(height-1, width - 1, width);
-        Debug.Log(idx);
-        Debug.Log(board[idx]);
-        Debug.Log(board[idx+1]);
+        for(int i = 0; i < board.Length; i+=2)
+        {
+            Debug.Log(board[i]);
+        }
+
         return "";
     }
 
