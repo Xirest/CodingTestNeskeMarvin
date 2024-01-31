@@ -8,7 +8,7 @@ public class Solution : MonoBehaviour
 {
     enum Tile { EMPTY, OPPONENT, PLAYER, OOB /*OutOfBounds*/ }
 
-    private static readonly char[] alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray();
+    //private static readonly char[] alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray();
     private static readonly char[] digits = "0123456789".ToCharArray();
 
     /// <summary>
@@ -18,13 +18,10 @@ public class Solution : MonoBehaviour
     /// <param name="column"></param>
     /// <param name="width"></param>
     /// <returns></returns>
-    private static int BoardCoordToIdx(char rowAsChar, int column, int width)
+    private static int BoardCoordToIdx(int row, int column, int width)
     {
-        // on the ASCII table A-Z starts at 65
-        int row = rowAsChar - 65;
-
         // the additional 2*row term fixes the issues introduced by the new lines
-        return ((width * row + column) * 2) + 2*row;
+        return (width * row + column) * 2;
     }
 
     /// <summary>
@@ -36,7 +33,8 @@ public class Solution : MonoBehaviour
     {
         int width = int.Parse(board[..2]);
         int height = int.Parse(board[2..5]);
-        if(width < 4 || width > 26 || height < 1 || height > 26)
+
+        if (width < 4 || width > 26 || height < 1 || height > 26)
         {
             throw new Exception("Board does not conform to defined dimensions");
         }
@@ -49,16 +47,18 @@ public class Solution : MonoBehaviour
         int[] widthHeight = ParseBoardSize(board);
         int width = widthHeight[0];
         int height = widthHeight[1];
+        int diagLength = height;
         // remove the first line with width and heigth from the string (plus three because of the trailing space, the including notation, and the new line)
         board = board[(board.LastIndexOfAny(digits)+3)..];
+        // remove the new lines as they make the coord calculations more difficult. Taken from: https://stackoverflow.com/a/4140802
+        board = Regex.Replace(board, @"\n|\r", "");
 
-        for (int y = 0; y < height; ++y)
-        {
-            for(int x = 0; x < width; ++x)
-            {
+        Debug.Log(board.Length);
 
-            }
-        }
+        int idx = BoardCoordToIdx(height-1, width - 1, width);
+        Debug.Log(idx);
+        Debug.Log(board[idx]);
+        Debug.Log(board[idx+1]);
         return "";
     }
 
