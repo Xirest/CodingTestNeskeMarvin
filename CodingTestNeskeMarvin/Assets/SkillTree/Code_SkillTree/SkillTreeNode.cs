@@ -125,24 +125,7 @@ public class SkillTreeNode : MonoBehaviour
     }
 
     /// <summary>
-    /// This method unlocks the skill if it's possible and returns true if the skill is unlocked.
-    /// To unlock without checking: use <see cref="Unlock"/>
-    /// </summary>
-    public bool UnlockAndCheck() {
-        if(CanBeUnlocked())
-        {
-            Unlock();
-            return true;
-        } else
-        {
-            Debug.Log("The skill " + GetSkillName() + " cant' be unlocked!");
-            return false;
-        }
-    }
-
-    /// <summary>
-    /// This method just unlocks the skill.
-    /// To check in unlocking is allowed first: use <see cref="UnlockAndCheck"/>
+    /// This method just unlocks the skill. Changing the button color and interactibility
     /// </summary>
     public void Unlock()
     {
